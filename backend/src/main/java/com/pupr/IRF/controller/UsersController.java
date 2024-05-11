@@ -31,18 +31,27 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UsersModel usersModel){
-        System.out.println("register request: " + usersModel);
-        UsersModel registeredUser = usersService.registerUser(usersModel.getLogin(), usersModel.getPassword(), usersModel.getEmail());
-        return registeredUser == null ? "error_page" : "redirect:/login";
+    public String register(@ModelAttribute UsersModel usersModel, Model model) {
+        try {
+            // Correct usage of the non-static method via an instance called usersService
+            UsersModel registeredUser = usersService.registerUser(usersModel.getUsername(), usersModel.getPassword(), usersModel.getEmail());
+            return "redirect:/login";
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("registerRequest", usersModel);
+            return "register_page"; // Redirect back to registration page with error message
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "An error occurred during registration.");
+            return "error_page";
+        }
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute UsersModel usersModel, Model model){
         System.out.println("login request: " + usersModel);
-        UsersModel authenticated = usersService.authenticate(usersModel.getLogin(), usersModel.getPassword());
+        UsersModel authenticated = usersService.authenticate(usersModel.getUsername(), usersModel.getPassword());
         if (authenticated != null) {
-            model.addAttribute("userLogin", authenticated.getLogin());
+            model.addAttribute("userLogin", authenticated.getUsername());
             return "personal_page";
         }else {
             return "error_page";

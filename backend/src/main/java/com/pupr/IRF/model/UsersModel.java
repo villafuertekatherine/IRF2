@@ -12,7 +12,7 @@ public class UsersModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String login;
+    String username;
 
     String password;
 
@@ -26,12 +26,12 @@ public class UsersModel {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -55,19 +55,19 @@ public class UsersModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersModel that = (UsersModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(email, that.email);
+        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, email);
+        return Objects.hash(id, username, password, email);
     }
 
     @Override
     public String toString() {
         return "UsersModel{" +
                 "email='" + email + '\'' +
-                ", login='" + login + '\'' +
+                ", login='" + username + '\'' +
                 ", id=" + id +
                 '}';
     }

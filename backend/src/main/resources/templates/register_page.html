@@ -6,15 +6,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="form">
     <form method="post" action="/register" th:object="${registerRequest}">
         <h2>Register</h2>
         <div class="input-box">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input type="username" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Username" required>
         </div>
         <div class="input-box">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input type="email" name="email" placeholder="Email">
+            <input type="email" name="email" placeholder="Email" required>
         </div>
         <div class="input-box">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
@@ -25,5 +26,6 @@
         </div>
         <a href="/">Navigate to main</a>
     </form>
+</div>
 </body>
 </html>

@@ -15,19 +15,18 @@ public class UsersService {
         this.usersRepository = usersRepository;
     }
 
-    public UsersModel registerUser(String login, String password, String email){
-        if (login == null || password == null) {
-            return null;
-        } else {
+    public UsersModel registerUser(String username, String password, String email){
+        if (username == null || password == null) {
+            throw new IllegalArgumentException("Username and password must not be null");
+        }else {
             UsersModel usersModel = new UsersModel();
-            usersModel.setLogin(login);
+            usersModel.setUsername(username);
             usersModel.setPassword(password);
             usersModel.setEmail(email);
             return usersRepository.save(usersModel);
         }
     }
-
-    public UsersModel authenticate(String login, String password){
-        return usersRepository.findByLoginAndPassword(login, password).orElse(null);
+    public UsersModel authenticate(String username, String password){
+        return usersRepository.findByUsernameAndPassword(username, password).orElse(null);
     }
 }
